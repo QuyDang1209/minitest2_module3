@@ -133,9 +133,12 @@ select address.Addres as Tinh, count(Addres) as SoHocVien from students
 join address on students.addres_id = address.id group by addres_id;
 
 -- Tinh diem trung binh cac khoa hoc
-select course.id, course.Name as KhoaHoc, avg(course.name) as DiemTrungBinh from point  
-join course on point.course_id = course.id group by point;
+select course.id, course.Name as KhoaHoc, avg(point.point) as DiemTrungBinh from point  
+left join course on point.course_id = course.id group by course_id;
 
 -- Lay ra diem cao nhat, thap nhat
-select students.FullName as Tenhocvien, max(Fullname) from point 
-join students on point.student_id = students.id group by point;
+select students.FullName as Tenhocvien, max(point.point) as DiemcaoNhat, min(point.point) Diemthapnhat from point 
+join students on point.student_id = students.id group by student_id;
+
+-- Lay ra danh sach HS, chuyen doi thanh chu hoa
+select FullName, ucase(fullname) as chuyendoi from students;
